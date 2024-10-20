@@ -36,6 +36,19 @@ const validatePostData = (req) =>{
         throw new Error("Invalid data !");
     }
 }
+
+const validatePostUpdateData = (req) => {
+    const postData = req.body;
+    const allowedUpdates = ["desc", "keywords"];
+    const isAllowedUpdates = Object.keys(postData).every((k) =>
+        allowedUpdates.includes(k)
+      );
+    
+    if(!isAllowedUpdates){
+        throw new Error("Update not allowed !");
+    }
+    return isAllowedUpdates;
+}
 module.exports = {
-    validateSignUpData, validateLoginData, validateUpdateData, validatePostData
+    validateSignUpData, validateLoginData, validateUpdateData, validatePostData, validatePostUpdateData
 }

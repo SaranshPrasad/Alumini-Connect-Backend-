@@ -47,7 +47,7 @@ profileRouter.delete("/user/profile/delete", userAuth, async (req, res) =>{
         const confirmPassword = req.body;
         const isPasswordValid = await loggedInUser.validatePassword(confirmPassword);
         if(!isPasswordValid){
-            res.status(400).json({message:"Incorrect Password !", confirmPassword});
+            throw new Error("Invalid password !")
         }
         const data = await User.findByIdAndDelete(_id);
         res.status(200).json({message:"User deleted successfully !", data});

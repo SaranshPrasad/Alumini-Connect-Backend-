@@ -21,11 +21,9 @@ const postSchema = mongoose.Schema({
     fromUserId:{
         type: mongoose.Schema.Types.ObjectId,
         required:true,
-        req:"User",
+        ref:"User",
     }
 },{timestamps:true});
-
-
 
 const Posts = mongoose.model("Posts", postSchema);
 module.exports = Posts;
