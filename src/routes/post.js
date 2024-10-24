@@ -9,13 +9,14 @@ postRouter.post("/user/post/add", userAuth, async (req,res)=>{
     try {
         const loggedInUser = req.user;
         const {_id} = loggedInUser;
-        const {photoUrl, desc, keywords} = req.body;
+        const {photoUrl, desc, keywords, title} = req.body;
         validatePostData(req);
         const newPost = new Posts({
             fromUserId:_id,
             photoUrl:photoUrl,
             desc:desc,
-            keywords:keywords
+            keywords:keywords,
+            title:title
         });
 
         const data = await newPost.save();

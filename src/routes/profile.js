@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 
 profileRouter.get("/user/profile", userAuth, async (req, res) => {
     const user = req.user;
-    const allowedData = ["firstName", "lastName", "age", "gender", "skills", "about"];
+    const allowedData = ["firstName", "lastName", "age", "gender", "skills", "about", "photoUrl", "userName", "jobTitle", "location"];
     try {
         const data = {};
         allowedData.forEach((key) => {

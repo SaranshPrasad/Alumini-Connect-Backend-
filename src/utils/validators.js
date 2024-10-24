@@ -20,7 +20,7 @@ const validateLoginData = (req) => {
 
 const validateUpdateData = (req) => {
     const userData = req.body;
-    const allowedFieldsUpdate = ["about", "photoUrl", "age", "skills", "firstName", "lastName"];
+    const allowedFieldsUpdate = ["about", "photoUrl", "age", "skills", "firstName", "lastName", "jobTitle", "location"];
     const isAllowedUpdates = Object.keys(userData).every((k) =>
         allowedFieldsUpdate.includes(k)
       );

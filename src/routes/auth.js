@@ -11,12 +11,12 @@ authRouter.use(express.json());
 authRouter.use(cookieParser());
 
 authRouter.post("/auth/signup", async (req, res) => {
-    const {firstName , lastName , emailId , password , userName , age , gender } = req.body;
+    const {emailId , password , userName  } = req.body;
     try {
         validateSignUpData(req);
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = new User({
-            firstName, lastName, emailId, password:hashedPassword, userName, age, gender
+             emailId, password:hashedPassword, userName
         });
         const data = await newUser.save();
         res.status(200).json({message:"User saved successfully", data});
@@ -40,7 +40,7 @@ authRouter.post("/auth/login", async (req, res) => {
         if(isValidPassword){
             const token =  await user.getJWT();
             res.cookie('token', token);
-            res.status(200).json({message:"User logged In successfully !!" , user});
+            res.status(200).json({message:"User logged In successfully !!" , user, token:token});
         }
     } catch (error) {
         res.status(400).json({message:"Something went wrong "+error.message})

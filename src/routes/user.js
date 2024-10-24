@@ -82,7 +82,7 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
            { _id: {$nin: Array.from(hideUsersFromFeed)}},
            { _id: {$ne: loggedInUser._id}},
         ],
-      }).select("firstName lastName age gender skills about").skip(skip).limit(limit);
+      }).select("firstName lastName  skills about jobTitle location userName").skip(skip).limit(limit);
       res.status(200).json({message:"Feed data fetched !", users})
   } catch (error) {
     res.status(400).json({message:"Something went wrong !"+error.message});

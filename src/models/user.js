@@ -8,13 +8,14 @@ const userSchema = new  mongoose.Schema({
         type:String,
         minLength:4,
         maxLength:25,
-        required:true,
-        trim:true
+        trim:true,
+        default: "First Name"
 
     },
     lastName:{
         type:String,
-        trim:true
+        trim:true,
+        default: "Last Name"
     },
     emailId:{
         type:String,
@@ -37,17 +38,17 @@ const userSchema = new  mongoose.Schema({
     age:{
         type:Number,
         min:18,
-        required:true
+       
     },
     gender:{
         type:String,
-        required:true,
         lowercase:true,
         validate(value){
             if(!["male","female","others"].includes(value)){
                 throw new Error("Gender data is not Valid !");
             }
-        }
+        },
+        default: "Others"
     },
     skills:{
         type:[String],
@@ -60,12 +61,13 @@ const userSchema = new  mongoose.Schema({
     about:{
         type:String,
         maxLength:100,
-        default:"I'm dev Looper !"
+        default:"I'm dev Looper !",
+
     },
     photoUrl:{
         type:String,
         default: " ",
-        trim:true
+        trim:true,
     },
     userName:{
         type:String,
@@ -73,6 +75,20 @@ const userSchema = new  mongoose.Schema({
         unique:true,
         maxLength:10,
         minLength:4
+    },
+    jobTitle:{
+        type:String,
+        maxLength:25,
+        minLength:5,
+        default:" Job Title",
+        trim:true
+    },
+    location:{
+        type:String,
+        maxLength:20,
+        minLength:3,
+        default:"Location",
+        trim:true
     }
 }, {timestamps:true});
 
