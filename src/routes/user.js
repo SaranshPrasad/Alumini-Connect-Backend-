@@ -10,7 +10,7 @@ userRouter.get("/user/request/received", userAuth, async (req, res) => {
     const connectionRequest = await Connection.find({
       toUserId: loggedInUser._id,
       status: "interested",
-    }).populate("fromUserId", ["firstName"]);
+    }).populate("fromUserId", ["firstName",  "photoUrl"]);
     if (!connectionRequest) {
       throw new Error("No request found");
     }
@@ -39,8 +39,8 @@ userRouter.get("/user/all/connections", userAuth, async (req, res) => {
         },
       ],
     })
-      .populate("fromUserId", ["firstName"])
-      .populate("toUserId", ["firstName"]);
+      .populate("fromUserId", ["firstName", "photoUrl"])
+      .populate("toUserId", ["firstName",  "photoUrl"]);
 
     const data = connections.map((k) => {
       if (k.fromUserId._id.toString() === loggedInUser._id.toString()) {
@@ -82,7 +82,7 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
            { _id: {$nin: Array.from(hideUsersFromFeed)}},
            { _id: {$ne: loggedInUser._id}},
         ],
-      }).select("firstName lastName  skills about jobTitle location userName").skip(skip).limit(limit);
+      }).select("firstName lastName  skills about jobTitle location userName photoUrl").skip(skip).limit(limit);
       res.status(200).json({message:"Feed data fetched !", users})
   } catch (error) {
     res.status(400).json({message:"Something went wrong !"+error.message});
